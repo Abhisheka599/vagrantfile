@@ -1,0 +1,34 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+config.vm.define "ldap" do |ldap|
+ldap.vm.box = "ubuntu/trusty64"
+ldap.vm.hostname="ldap.wipl.com"
+ldap.vm.synced_folder ".", "/ldap", id: "vagrant-root", type: "nfs"
+ldap.vm.network "private_network", ip: "172.16.0.240"
+ldap.vm.network "forwarded_port", guest: 80, host: 8101, auto_correct: true
+ldap.vm.provider "virtualbox" do |ldap|
+ldap.cpus =2
+ldap.memory=2048
+end
+end
+end
+
+Vagrant.configure("2") do |config|
+ config.vm.define "ldap1" do |ldap1|
+ldap1.vm.box = "centos/7"
+ldap1.vm.hostname="ldap1.wipl.com"
+ldap1.vm.synced_folder ".", "/ldap", id: "vagrant-root", type: "nfs"
+ldap1.vm.network "private_network", ip: "172.16.0.241"
+ldap1.vm.network "forwarded_port", guest: 80, host: 8102
+ldap1.vm.provider "virtualbox" do |ldap1|
+ldap1.cpus =2
+ldap1.memory=2048
+end
+end
+end
