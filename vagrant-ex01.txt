@@ -8,11 +8,10 @@
 Vagrant.configure("2") do |config|
 config.vm.define "ldap" do |ldap|
 ldap.vm.box = "ubuntu/trusty64"
-ldap.vm.hostname="ldap.vipin.com"
+ldap.vm.hostname="ldap.wipl.com"
 ldap.vm.synced_folder ".", "/ldap", id: "vagrant-root", type: "nfs"
-ldap.vm.network "private_network", ip: "172.16.0.249"
-ldap.vm.network "forwarded_port", host: 80, guest: 8080, auto_correct: true
-ldap.vm.provision "shell", path: "provision.sh"
+ldap.vm.network "private_network", ip: "172.16.0.240"
+ldap.vm.network "forwarded_port", guest: 80, host: 8101, auto_correct: true
 ldap.vm.provider "virtualbox" do |ldap|
 ldap.cpus =2
 ldap.memory=2048
